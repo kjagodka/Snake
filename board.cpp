@@ -18,6 +18,11 @@ Field &Board::getField(Coords coords) {
     return getField(column, row);
 }
 
+Board &Board::getBoard() {
+    static Board board;
+    return board;
+}
+
 
 bool Board::isAlive() const {
     return alive;
@@ -42,14 +47,23 @@ void Board::init() {
     }
     int midcol = COLUMNS / 2;
     int midrow = ROWS / 2;
+
     getField(midcol - 2, midrow).setTail(RIGHT);
+    tail.setColumn(midcol - 2);
+    tail.setRow(midrow);
+
     getField(midcol - 1, midrow).setBody(LEFT, RIGHT);
     getField(midcol, midrow).setBody(LEFT, RIGHT);
     getField(midcol + 1, midrow).setBody(LEFT, RIGHT);
+
     getField(midcol + 2, midrow).setHead(LEFT);
+    tail.setColumn(midcol + 2);
+    tail.setRow(midrow);
+
     currentLength = 5;
     futureLength = 5;
     placeApple();
+    alive = true;
 }
 
 void Board::move(direction moveDir) {
@@ -86,4 +100,8 @@ void Board::move(direction moveDir) {
         getField(newTail).setTail();
         tail = newTail;
     }
+}
+
+Board::Board() {
+    init();
 }

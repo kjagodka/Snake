@@ -16,15 +16,17 @@
 class Board {
 
 public:
-    int getRows();
-    int getColumns();
+    Board(const Board &board);
+
     Field& getField(int column, int row);
     Field& getField(Coords coords);
     bool isAlive() const;
     void move(direction moveDir);
     void init();
+    static Board& getBoard();
 
 private:
+    Board();
     Field fields[COLUMNS][ROWS];
     bool alive;
     Coords head;
