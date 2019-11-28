@@ -20,6 +20,13 @@ Field& Board::getField(int column, int row) {
     return fields[column][row];
 }
 
+Field &Board::getField(Coords coords) {
+    int column = coords.getColumn();
+    int row = coords.getRow();
+    return getField(column, row);
+}
+
+
 bool Board::isAlive() const {
     return alive;
 }
@@ -60,10 +67,31 @@ void Board::move(direction moveDir) {
         newHead.getColumn() < 0 ||
         newHead.getRow() >= rows ||
         newHead.getRow() < 0 ||
-        getField(newHead.getColumn(), newHead.getRow()).getType() == BODY ||
-        (getField(newHead.getColumn(), newHead.getRow()).getType() == TAIL && futureLength > currentLength))
+        getField(newHead).getType() == BODY ||
+        (getField(newHead).getType() == TAIL && futureLength > currentLength))
     {
         alive = false; //[*]
         return;
+    }
+
+    getField(head).setBody(moveDir);
+    getField(newHead).setHead(oppositeDirection(moveDir));
+    head = newHead;
+
+    if (newHead == apple) {
+        futureLength += GROW_LEN;
+        placeApple();
+    }
+
+    if (futureLength > currentLength) {
+        currentLength++;
+    }
+    else
+    {
+        Coords newTail = tail;
+        newTail.move(getField(tail).getTo());
+        getField(tail).setEmpty();
+        getField(newTail).setTail();
+        tail = newTail;
     }
 }

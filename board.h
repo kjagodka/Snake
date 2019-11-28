@@ -9,12 +9,15 @@
 #include "coords.h"
 #include <vector>
 
+#define GROW_LEN 2
+
 class Board {
 
 public:
     int getRows();
     int getColumns();
     Field& getField(int column, int row);
+    Field& getField(Coords coords);
     bool isAlive() const;
     void move(direction moveDir);
     void init();
