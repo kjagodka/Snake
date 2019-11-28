@@ -3,13 +3,11 @@ project(Snake)
 
 set(CMAKE_CXX_STANDARD 17)
 find_package(OpenGL REQUIRED)
-find_package(glfw3 3.3 REQUIRED)
-find_package(GLEW REQUIRED)
+find_package(GLUT REQUIRED)
 
-include_directories(${GLEW_INCLUDE_DIRS})
-include_directories(${GLFW_INCLUDE_DIRS})
+include_directories(${GLUT_INCLUDE_DIRS})
 include_directories(${OPENGL_INCLUDE_DIRS})
 
-add_executable(Snake main.cpp board.cpp board.h field.cpp field.h coords.h coords.cpp)
+add_executable(Snake main.cpp board.cpp board.h field.cpp field.h coords.h coords.cpp drawer.h drawer.cpp)
 
-target_link_libraries(Snake glfw GLEW::GLEW)
+target_link_libraries(Snake ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )

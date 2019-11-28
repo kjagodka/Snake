@@ -10,6 +10,8 @@
 #include <vector>
 
 #define GROW_LEN 2
+#define ROWS 9
+#define COLUMNS 19
 
 class Board {
 
@@ -23,8 +25,7 @@ public:
     void init();
 
 private:
-    int rows, columns;
-    std::vector < std::vector < Field > > fields;
+    Field fields[COLUMNS][ROWS];
     bool alive;
     Coords head;
     Coords tail;

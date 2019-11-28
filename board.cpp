@@ -8,14 +8,6 @@
 int mod(int a, int b)
 { return (a%b+b)%b; }
 
-int Board::getRows() {
-    return rows;
-}
-
-int Board::getColumns() {
-    return columns;
-}
-
 Field& Board::getField(int column, int row) {
     return fields[column][row];
 }
@@ -34,8 +26,8 @@ bool Board::isAlive() const {
 void Board::placeApple() {
     int column, row;
     do {
-        column = mod(rand(), columns);
-        row = mod(rand(), rows);
+        column = mod(rand(), COLUMNS);
+        row = mod(rand(), ROWS);
     } while(!getField(column, row).setApple());
 
     apple.setColumn(column);
@@ -43,13 +35,13 @@ void Board::placeApple() {
 }
 
 void Board::init() {
-    for (int column = 0; column < columns; column ++) {
-        for (int row = 0; row < rows; row++) {
+    for (int column = 0; column < COLUMNS; column ++) {
+        for (int row = 0; row < ROWS; row++) {
             getField(column, row).setEmpty();
         }
     }
-    int midcol = columns / 2;
-    int midrow = rows / 2;
+    int midcol = COLUMNS / 2;
+    int midrow = ROWS / 2;
     getField(midcol - 2, midrow).setTail(RIGHT);
     getField(midcol - 1, midrow).setBody(LEFT, RIGHT);
     getField(midcol, midrow).setBody(LEFT, RIGHT);
@@ -63,9 +55,9 @@ void Board::init() {
 void Board::move(direction moveDir) {
     Coords newHead = head;
     newHead.move(moveDir);
-    if (newHead.getColumn() >= columns ||
+    if (newHead.getColumn() >= COLUMNS ||
         newHead.getColumn() < 0 ||
-        newHead.getRow() >= rows ||
+        newHead.getRow() >= ROWS ||
         newHead.getRow() < 0 ||
         getField(newHead).getType() == BODY ||
         (getField(newHead).getType() == TAIL && futureLength > currentLength))

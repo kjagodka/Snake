@@ -70,6 +70,7 @@ bool Field::setTail(direction to) {
     }
     type = TAIL;
     Field::to = to;
+    return true;
 }
 
 bool Field::setEmpty() {
