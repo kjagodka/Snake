@@ -8,6 +8,6 @@ find_package(GLUT REQUIRED)
 include_directories(${GLUT_INCLUDE_DIRS})
 include_directories(${OPENGL_INCLUDE_DIRS})
 
-add_executable(Snake main.cpp board.cpp board.h coords.h coords.cpp drawer.h drawer.cpp entity.cpp entity.h wall.cpp wall.h snakeSegment.cpp snakeSegment.h snakeBody.cpp snakeBody.h void.cpp void.h snakeHead.cpp snakeHead.h snakeTail.cpp snakeTail.h)
+add_executable(Snake main.cpp board.cpp board.h coords.h coords.cpp drawer.h drawer.cpp entity.cpp entity.h wall.cpp wall.h snakeSegment.cpp snakeSegment.h snakeBody.cpp snakeBody.h void.cpp void.h snakeHead.cpp snakeHead.h snakeTail.cpp snakeTail.h apple.cpp apple.h)
 
 target_link_libraries(Snake ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
