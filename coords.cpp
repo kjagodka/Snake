@@ -3,6 +3,7 @@
 //
 
 #include "coords.h"
+#include "settings.h"
 
 direction oppositeDirection(direction dir) {
     switch(dir) {
@@ -31,18 +32,30 @@ void Coords::move(direction dir) {
     switch(dir) {
         case UP:
             row++;
-            return;
+            break;
         case DOWN:
             row--;
-            return;
+            break;
         case RIGHT:
             column++;
-            return;
+            break;
         case LEFT:
             column--;
-            return;
+            break;
         default:
-            return;
+            break;
+    }
+
+    if (Settings::getSettings().isWrapBoard()) {
+        if (row < 0)
+            row = Settings::getSettings().getRows() - 1;
+        if (row == Settings::getSettings().getRows())
+            row = 0;
+        if (column < 0)
+            column = Settings::getSettings().getColumns() - 1;
+        if (column == Settings::getSettings().getColumns())
+            column = 0;
+
     }
 }
 

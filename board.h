@@ -13,31 +13,33 @@
 #include <memory>
 #include <vector>
 
-#define ROWS 15
-#define COLUMNS 7
-#define APPLE_GROWTH_LEN 1
-
 void tick(int time);
 
 class Board {
 public:
-    void init();
-    void resize(int columns, int rows);
+    void reset();
+    void resize();
     int getColumns() const;
     int getRows() const;
     static Board &getBoard();
     void draw() const;
     void setEntity(Coords c, std::shared_ptr < Entity > entity);
     std::shared_ptr < Entity > getEntity(Coords &c) const;
-    bool makeMove(direction moveDir);
+    bool makeMove();
+    void setMoveDirection(direction moveDirection);
+
 private:
     std::shared_ptr < Head > head;
     std::shared_ptr < Tail > tail;
+    direction moveDirection;
+    void clearBoard();
+    void spawnWalls();
+    void spawnSnake();
+    void spawnApple();
     int columns;
     int rows;
     int snakeLen;
     int futureSnakeLen;
-    void placeApple();
     bool isMoveSafe(Coords newHeadPosition) const;
     std::vector < std::vector < std::shared_ptr < Entity > > > entities;
     Board();
