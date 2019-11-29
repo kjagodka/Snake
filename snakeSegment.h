@@ -10,11 +10,11 @@
 
 #define SNAKE_WIDTH 0.9
 
-class SnakeSegment : Entity {
+class SnakeSegment : public Entity {
 protected:
     void drawMiddle() const;
     void drawEdge(direction side) const;
-    SnakeSegment(Coords c);
+    explicit SnakeSegment(Coords c);
 };
 
 

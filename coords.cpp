@@ -58,3 +58,5 @@ bool Coords::operator==(const Coords &other) {
     return this->column == other.column && this->row == other.row;
 
 }
+
+Coords::Coords(int column, int row) : row(row), column(column) {}

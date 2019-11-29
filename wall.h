@@ -7,7 +7,7 @@
 
 #include "entity.h"
 
-class Wall : Entity {
+class Wall : public Entity {
 public:
     void draw() const;
     Wall(Coords c);

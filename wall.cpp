@@ -3,6 +3,7 @@
 //
 
 #include <GL/glut.h>
+#include <iostream>
 #include "wall.h"
 
 void Wall::draw() const {

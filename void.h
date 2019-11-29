@@ -8,10 +8,11 @@
 
 #include "entity.h"
 
-class Void : Entity
+class Void : public Entity
 {
 public:
-    Void(Coords c);
+    Void(const Coords &c);
+
     void draw() const;
 };
 

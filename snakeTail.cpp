@@ -4,7 +4,9 @@
 
 #include "snakeTail.h"
 
-SnakeTail::SnakeTail(const Coords &c, direction goingTo) : SnakeSegment(c), goingTo(goingTo) {}
+SnakeTail::SnakeTail(const Coords &c, direction goingFrom) : SnakeSegment(c), goingTo(goingFrom) {
+    type = TAIL;
+}
 
 direction SnakeTail::getGoingTo() const {
     return goingTo;

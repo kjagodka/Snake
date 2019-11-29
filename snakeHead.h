@@ -8,11 +8,12 @@
 
 #include "snakeSegment.h"
 
-class SnakeHead : SnakeSegment{
+class SnakeHead : public SnakeSegment{
 private:
     direction goingFrom;
 public:
     SnakeHead(const Coords &c, direction goingFrom);
+    void draw() const;
 };
 
 

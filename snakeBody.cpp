@@ -12,7 +12,9 @@ void SnakeBody::draw() const {
 
 SnakeBody::SnakeBody(const Coords &c, direction comingFrom, direction goingTo) : SnakeSegment(c),
                                                                                  comingFrom(comingFrom),
-                                                                                 goingTo(goingTo) {}
+                                                                                 goingTo(goingTo) {
+    type = BODY;
+}
 
 direction SnakeBody::getComingFrom() const {
     return comingFrom;

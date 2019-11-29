@@ -10,7 +10,7 @@ const Coords &Entity::getCoords() const {
     return coords;
 }
 
-Entity::entityType Entity::getType() const {
+entityType Entity::getType() const {
     return type;
 }
 
@@ -32,4 +32,12 @@ void Entity::drawRectangle(float x, float y, float width, float height) const {
     glRectf(fieldX + x, fieldY + y, fieldX + x + width, fieldY + y + height);
 }
 
-Entity::Entity(Coords c) : coords(c){}
+
+
+Entity::Entity(Coords c) : coords(c), type(VOID){}
+
+void Entity::setCoords(const Coords &coords) {
+    Entity::coords = coords;
+}
+
+void Entity::draw() const {}

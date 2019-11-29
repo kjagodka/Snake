@@ -8,11 +8,11 @@
 
 #include "snakeSegment.h"
 
-class SnakeTail : SnakeSegment{
+class SnakeTail : public SnakeSegment{
 private:
     direction goingTo;
 public:
-    SnakeTail(const Coords &c, direction goingTo);
+    SnakeTail(const Coords &c, direction goingFrom);
     direction getGoingTo() const;
     void draw() const;
 };

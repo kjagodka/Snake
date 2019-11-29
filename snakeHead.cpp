@@ -4,4 +4,11 @@
 
 #include "snakeHead.h"
 
-SnakeHead::SnakeHead(const Coords &c, direction goingFrom) : SnakeSegment(c), goingFrom(goingFrom) {}
+SnakeHead::SnakeHead(const Coords &c, direction goingFrom) : SnakeSegment(c), goingFrom(goingFrom) {
+    type = HEAD;
+}
+
+void SnakeHead::draw() const {
+    drawMiddle();
+    drawEdge(goingFrom);
+}

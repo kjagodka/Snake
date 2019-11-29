@@ -1,5 +1,4 @@
 #include <iostream>
-#include "drawer.h"
 #include "board.h"
 #include <GL/glut.h>
 
@@ -13,9 +12,15 @@ void Menu(int menuOption)
         case EXIT:
             exit(0);
         case RESET:
-            Board::getBoard().reset();
+            Board::getBoard().init();
             break;
     }
+}
+
+void draw() {
+    Board::getBoard().draw();
+    glFlush();
+    glutSwapBuffers();
 }
 
 void Reshape(int width, int height)
@@ -29,7 +34,7 @@ void Reshape(int width, int height)
     } else {
         glViewport(0, 0, width, height);
     }
-    drawBoard();
+    draw();
 }
 
 void drawerInit(int argc, char **argv) {
@@ -37,11 +42,11 @@ void drawerInit(int argc, char **argv) {
 
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 
-    glutInitWindowSize(1650, 950);
+    glutInitWindowSize(400, 400);
 
     glutCreateWindow("Kwadrat 1");
 
-    glutDisplayFunc(drawBoard);
+    glutDisplayFunc(draw);
 
     glutReshapeFunc(Reshape);
 
@@ -58,9 +63,11 @@ void drawerInit(int argc, char **argv) {
     glutMainLoop();
 }
 
-void tick(int time) {
+void tick(int) {
+    draw();
+    std::cout<<"tick\n";
     glutTimerFunc(500, tick, 0);
-    drawBoard();
+
 }
 
 
@@ -68,5 +75,4 @@ void tick(int time) {
 int main(int argc, char * argv[] )
 {
     drawerInit(argc, argv);
-
 }

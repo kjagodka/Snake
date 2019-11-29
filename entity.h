@@ -8,17 +8,19 @@
 
 #include "coords.h"
 
+enum entityType {HEAD, BODY, TAIL, APPLE, VOID, WALL};
+
 class Entity {
 protected:
     Coords coords;
-    enum entityType{HEAD, BODY, TAIL, APPLE, VOID, WALL} type;
+    entityType type;
     void drawRectangle(float x, float y, float width, float height) const;
-    Entity(Coords c);
-
 public:
     const Coords &getCoords() const;
+    Entity(Coords c);
     entityType getType() const;
-    virtual void draw() const = 0;
+    virtual void draw() const;
+    void setCoords(const Coords &coords);
 };
 
 

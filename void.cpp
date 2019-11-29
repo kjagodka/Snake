@@ -4,7 +4,7 @@
 
 #include "void.h"
 
-Void::Void(Coords c) : Entity(c) {
+Void::Void(const Coords &c) : Entity(c) {
     type = VOID;
 }
 

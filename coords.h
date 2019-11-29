@@ -18,10 +18,12 @@ public:
     void setRow(int row);
     void setColumn(int column);
     bool operator ==(const Coords &other);
+    Coords(int column, int row);
+    Coords() = default;
+
 private:
     int row;
     int column;
-public:
 };
 
 

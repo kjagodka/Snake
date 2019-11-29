@@ -8,7 +8,7 @@
 
 #include "snakeSegment.h"
 
-class SnakeBody : SnakeSegment{
+class SnakeBody : public SnakeSegment{
 private:
     direction comingFrom, goingTo;
 public:
