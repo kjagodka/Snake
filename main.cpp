@@ -22,7 +22,7 @@ public:
     }
 } counter;
 
-enum{EXIT, RESET};
+enum{EXIT, RESET, SET_WALLS, SET_WRAPPING};
 void Menu(int menuOption)
 {
     switch(menuOption)
@@ -30,6 +30,14 @@ void Menu(int menuOption)
         case EXIT:
             exit(0);
         case RESET:
+            Board::getBoard().reset();
+            break;
+        case SET_WALLS:
+            Settings::getSettings().setWallsExist(!Settings::getSettings().getWallsExist());
+            Board::getBoard().reset();
+            break;
+        case SET_WRAPPING:
+            Settings::getSettings().setWrapBoard(!Settings::getSettings().isWrapBoard());
             Board::getBoard().reset();
             break;
     }
@@ -99,6 +107,8 @@ void drawerInit(int argc, char **argv) {
 
     glutAddMenuEntry("EXIT", EXIT);
     glutAddMenuEntry("RESET", RESET);
+    glutAddMenuEntry("SET WALLS", SET_WALLS);
+    glutAddMenuEntry("SET WRAPPING", SET_WRAPPING);
 
     glutAttachMenu(GLUT_RIGHT_BUTTON);
 
@@ -111,7 +121,7 @@ void tick(int keyStrokes) {
 
     Board::getBoard().makeMove();
     draw();
-    std::cout<<"tick\n";
+    //std::cout<<"tick\n";
     glutTimerFunc(Settings::getSettings().getTickDelayMs(), tick, keyStrokes);
 }
 

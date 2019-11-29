@@ -64,7 +64,7 @@ Settings::Settings() {
     wrapBoard = DEFAULT_WRAP_BOARD;
     tickDelayMs = DEFAULT_TICK_DELAY_MS;
     growthLen = DEFAULT_GROWTH_LEN;
-    startLength = DEFAULT_START_LENGHT;
+    startLength = DEFAULT_START_LENGTH;
 }
 
 int Settings::getStartLength() const {

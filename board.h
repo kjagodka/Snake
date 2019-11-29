@@ -40,6 +40,7 @@ private:
     int rows;
     int snakeLen;
     int futureSnakeLen;
+    bool isAlive;
     bool isMoveSafe(Coords newHeadPosition) const;
     std::vector < std::vector < std::shared_ptr < Entity > > > entities;
     Board();

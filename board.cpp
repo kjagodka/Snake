@@ -143,6 +143,7 @@ void Board::reset() {
     spawnApple();
 
     moveDirection = RIGHT;
+    isAlive = true;
 
 }
 
@@ -164,9 +165,10 @@ bool Board::makeMove() {
     Coords newHeadCoords = head->getCoords();
     newHeadCoords.move(moveDirection);
 
-    if(!isMoveSafe(newHeadCoords))
+    if(!isMoveSafe(newHeadCoords) || !isAlive) {
+        isAlive = false;
         return false;
-
+    }
 
     if (getEntity(newHeadCoords)->getType() == APPLE) {
         futureSnakeLen += Settings::getSettings().getGrowthLen();
