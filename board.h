@@ -7,11 +7,15 @@
 
 #include "coords.h"
 #include "entity.h"
+#include "snakeHead.h"
+#include "snakeTail.h"
+#include "apple.h"
 #include <memory>
 #include <vector>
 
-#define ROWS 5
-#define COLUMNS 9
+#define ROWS 15
+#define COLUMNS 7
+#define APPLE_GROWTH_LEN 1
 
 void tick(int time);
 
@@ -23,9 +27,18 @@ public:
     int getRows() const;
     static Board &getBoard();
     void draw() const;
+    void setEntity(Coords c, std::shared_ptr < Entity > entity);
+    std::shared_ptr < Entity > getEntity(Coords &c) const;
+    bool makeMove(direction moveDir);
 private:
+    std::shared_ptr < Head > head;
+    std::shared_ptr < Tail > tail;
     int columns;
     int rows;
+    int snakeLen;
+    int futureSnakeLen;
+    void placeApple();
+    bool isMoveSafe(Coords newHeadPosition) const;
     std::vector < std::vector < std::shared_ptr < Entity > > > entities;
     Board();
 };

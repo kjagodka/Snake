@@ -4,22 +4,23 @@
 
 #include "snakeBody.h"
 
-void SnakeBody::draw() const {
+void Body::draw() const {
     drawMiddle();
     drawEdge(comingFrom);
     drawEdge(goingTo);
 }
 
-SnakeBody::SnakeBody(const Coords &c, direction comingFrom, direction goingTo) : SnakeSegment(c),
+Body::Body(const Coords &c, direction comingFrom, direction goingTo) : SnakeSegment(c),
                                                                                  comingFrom(comingFrom),
                                                                                  goingTo(goingTo) {
     type = BODY;
 }
 
-direction SnakeBody::getComingFrom() const {
+direction Body::getComingFrom() const {
     return comingFrom;
 }
 
-direction SnakeBody::getGoingTo() const {
+direction Body::getGoingTo() const {
     return goingTo;
 }
+

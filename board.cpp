@@ -1,6 +1,11 @@
+#include <utility>
+
+#include <utility>
+
 #include "board.h"
 #include "void.h"
 #include "wall.h"
+#include "apple.h"
 #include "snakeTail.h"
 #include "snakeBody.h"
 #include "snakeHead.h"
@@ -44,7 +49,6 @@ void Board::draw() const {
 
 
 void Board::resize(int columns, int rows) {
-    std::cout<<"resize"<<std::endl;
     Board::columns = columns;
     Board::rows = rows;
     entities = std::vector < std::vector < std::shared_ptr < Entity > > >(columns);
@@ -52,7 +56,6 @@ void Board::resize(int columns, int rows) {
     for (int c = 0; c < columns; c++) {
         entities[c] = std::vector < std::shared_ptr < Entity > >(rows);
         for (int r = 0; r < rows; r++) {
-            std::cout<<c<<" "<<r<<std::endl;
             entities[c][r] = std::make_shared<Entity>(Coords(c, r));
         }
     }
@@ -68,18 +71,85 @@ void Board::init() {
                 entities[col][row] = std::make_shared<Wall>(Coords(col, row));
         }
     }
-    int midCol = columns / 2;
-    int midRow = rows / 2;
+    Coords c(columns / 2 - 2, rows / 2);
 
-    entities[midCol - 2][midRow] = std::make_shared<SnakeTail>(Coords(midCol - 2, midRow), RIGHT);
-    entities[midCol - 1][midRow] = std::make_shared<SnakeBody>(Coords(midCol - 1, midRow), RIGHT, LEFT);
-    entities[midCol][midRow] = std::make_shared<SnakeBody>(Coords(midCol, midRow), RIGHT, LEFT);
-    entities[midCol + 1][midRow] = std::make_shared<SnakeBody>(Coords(midCol + 1, midRow), RIGHT, LEFT);
-    entities[midCol + 2][midRow] = std::make_shared<SnakeHead>(Coords(midCol + 2, midRow), LEFT);
+    tail = std::make_shared<Tail>(c, RIGHT);
+    setEntity(c, tail);
 
+    c.move(RIGHT);
+    setEntity(c, std::make_shared<Body>(c, LEFT, RIGHT));
+    c.move(RIGHT);
+    setEntity(c, std::make_shared<Body>(c, LEFT, RIGHT));
+    c.move(RIGHT);
+    setEntity(c, std::make_shared<Body>(c, LEFT, RIGHT));
+    c.move(RIGHT);
+
+    head = std::make_shared<Head>(c, LEFT);
+    setEntity(c, head);
+    snakeLen = 5;
+    futureSnakeLen = 5;
+
+    placeApple();
 }
 
 Board::Board() : rows(ROWS), columns(COLUMNS){
     resize(columns, rows);
     init();
+}
+
+
+void Board::setEntity(Coords c, std::shared_ptr<Entity> entity) {
+    entities[c.getColumn()][c.getRow()] = std::move(entity);
+}
+
+std::shared_ptr<Entity> Board::getEntity(Coords &c) const{
+    return entities[c.getColumn()][c.getRow()];
+}
+
+bool Board::makeMove(direction moveDir) {
+    Coords newHeadCoords = head->getCoords();
+    newHeadCoords.move(moveDir);
+
+    if(!isMoveSafe(newHeadCoords))
+        return false;
+
+
+    if (getEntity(newHeadCoords)->getType() == APPLE) {
+        futureSnakeLen += APPLE_GROWTH_LEN;
+        placeApple();
+    }
+
+    if (futureSnakeLen == snakeLen) //snake doesn't grow
+        tail->move();
+    else
+        snakeLen++;
+
+    head->move(moveDir);
+
+}
+
+bool Board::isMoveSafe(Coords newHeadPosition) const {
+    if (getEntity(newHeadPosition)->getType() == WALL)
+        return false;
+    if (getEntity(newHeadPosition)->getType() == BODY)
+        return false;
+    if (getEntity(newHeadPosition)->getType() == TAIL && futureSnakeLen > snakeLen)
+        return false;
+    else
+        return true;
+}
+
+int mod(int a, int b) {
+    return (a%b+b)%b;
+}
+
+void Board::placeApple() {
+    if (futureSnakeLen >= (columns - 1) * (rows - 1))
+        return;
+    Coords c;
+    do {
+        c = Coords(mod(rand(), columns), mod(rand(), rows));
+
+    } while (getEntity(c)->getType() != VOID);
+    setEntity(c, std::make_shared<Apple>(c));
 }

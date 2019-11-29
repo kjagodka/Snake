@@ -9,7 +9,7 @@
 #include "entity.h"
 #define APPLE_SIZE 0.7
 
-class Apple : Entity {
+class Apple : public Entity {
 public:
     void draw() const;
     Apple(const Coords &c);

@@ -8,7 +8,7 @@
 
 #include "snakeSegment.h"
 
-class SnakeBody : public SnakeSegment{
+class Body : public SnakeSegment{
 private:
     direction comingFrom, goingTo;
 public:
@@ -18,7 +18,7 @@ public:
 
     direction getGoingTo() const;
 
-    SnakeBody(const Coords &c, direction comingFrom, direction goingTo);
+    Body(const Coords &c, direction comingFrom, direction goingTo);
 };
 
 

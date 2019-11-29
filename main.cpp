@@ -64,6 +64,7 @@ void drawerInit(int argc, char **argv) {
 }
 
 void tick(int) {
+    Board::getBoard().makeMove(UP);
     draw();
     std::cout<<"tick\n";
     glutTimerFunc(500, tick, 0);
