@@ -5,36 +5,29 @@
 #ifndef SNAKE_BOARD_H
 #define SNAKE_BOARD_H
 
-#include "field.h"
 #include "coords.h"
+#include "entity.h"
 #include <vector>
 
 #define GROW_LEN 2
-#define ROWS 9
-#define COLUMNS 19
+#define ROWS 19
+#define COLUMNS 33
+
+void tick(int time);
 
 class Board {
-
 public:
-    Board(const Board &board);
-
-    Field& getField(int column, int row);
-    Field& getField(Coords coords);
-    bool isAlive() const;
-    void move(direction moveDir);
     void init();
-    static Board& getBoard();
+    void resize(int rows, int columns);
 
+    int getColumns() const;
+    int getRows() const;
+    static Board &getBoard();
+    void draw() const;
 private:
-    Board();
-    Field fields[COLUMNS][ROWS];
-    bool alive;
-    Coords head;
-    Coords tail;
-    Coords apple;
-    int currentLength;
-    int futureLength;
-    void placeApple();
+    int columns;
+    int rows;
+    std::vector < std::vector < Entity > > entities;
 };
 
 #endif //SNAKE_BOARD_H

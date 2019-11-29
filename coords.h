@@ -12,8 +12,8 @@ direction oppositeDirection(direction dir);
 
 class Coords {
 public:
-    int getRow();
-    int getColumn();
+    int getRow() const;
+    int getColumn() const;
     void move(direction dir);
     void setRow(int row);
     void setColumn(int column);

@@ -19,11 +19,11 @@ direction oppositeDirection(direction dir) {
     }
 }
 
-int Coords::getColumn() {
+int Coords::getColumn() const {
     return column;
 }
 
-int Coords::getRow() {
+int Coords::getRow() const {
     return row;
 }
 

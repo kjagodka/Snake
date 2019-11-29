@@ -7,9 +7,6 @@
 
 #include "board.h"
 
-#define APPLE_SIZE 0.5
-#define SNAKE_WIDTH 0.8
-
 void drawerInit(int argc, char * argv[] );
 
 void drawBoard();
